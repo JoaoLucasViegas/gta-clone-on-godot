@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/asphalt_02_rough_1k.jpg-50dd0f1d44de75ac4acd6c914c9ee354.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/asphalt_02_1k.blend/textures/asphalt_02_rough_1k.jpg"
+dest_files=[ "res://.import/asphalt_02_rough_1k.jpg-50dd0f1d44de75ac4acd6c914c9ee354.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

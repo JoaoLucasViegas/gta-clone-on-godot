@@ -1,0 +1,135 @@
+[gd_scene load_steps=18 format=3 uid="uid://dhlhkglmhc8fu"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_ambmq"]
+[ext_resource type="Texture2D" uid="uid://bxr7032ebf53o" path="res://assets/red_brick_03_1k.blend/textures/red_brick_03_disp_1k.png" id="2_2f1l1"]
+[ext_resource type="Texture2D" uid="uid://de7idpf03ajnr" path="res://assets/red_brick_03_1k.blend/textures/red_brick_03_diff_1k.jpg" id="2_lg5ca"]
+[ext_resource type="Texture2D" uid="uid://dtd2ithlgmnej" path="res://assets/wide_street_02_1k.hdr" id="2_s8d6v"]
+[ext_resource type="Script" path="res://CameraOrbit.gd" id="3_e3gnr"]
+[ext_resource type="Texture2D" uid="uid://ddqq3j35xjwfp" path="res://assets/asphalt_02_1k.blend/textures/asphalt_02_diff_1k.jpg" id="3_rrabp"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_fj0py"]
+transparency = 4
+cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+emission_texture = ExtResource( "2_2f1l1" )
+rim_tint = 1.0
+rim_texture = ExtResource( "2_2f1l1" )
+point_size = 12.5
+distance_fade_max_distance = 4.46
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_idheg"]
+material = SubResource( "ORMMaterial3D_fj0py" )
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8l87e"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qmngi"]
+panorama = ExtResource( "2_s8d6v" )
+
+[sub_resource type="Sky" id="Sky_q6bw5"]
+sky_material = SubResource( "PanoramaSkyMaterial_qmngi" )
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_x6db7"]
+background_mode = 2
+background_color = Color(0.298039, 0.258824, 0.576471, 1)
+sky = SubResource( "Sky_q6bw5" )
+reflected_light_source = 2
+glow_enabled = true
+glow_normalized = true
+glow_blend_mode = 0
+glow_hdr_threshold = 1.09
+glow_hdr_scale = 4.0
+volumetric_fog_light = Color(0.0196078, 0.0196078, 0.0196078, 1)
+adjustment_contrast = 0.85
+adjustment_saturation = 1.75
+
+[sub_resource type="CameraEffects" id="CameraEffects_m2vm2"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 50.0
+dof_blur_amount = 0.09
+override_exposure_enabled = true
+override_exposure = 16.0
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_lj0un"]
+albedo_texture = ExtResource( "2_lg5ca" )
+emission = Color(0.356863, 0.356863, 0.356863, 1)
+ao_enabled = true
+ao_on_uv2 = true
+refraction_scale = 1.0
+uv1_scale = Vector3(7.153, 2.465, 0)
+grow_amount = 10.0
+point_size = 128.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_3ghnr"]
+material = SubResource( "ORMMaterial3D_lj0un" )
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_o4cdl"]
+albedo_texture = ExtResource( "3_rrabp" )
+ao_enabled = true
+ao_light_affect = 1.0
+ao_on_uv2 = true
+uv1_scale = Vector3(2.291, 3.215, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kbt3w"]
+material = SubResource( "ORMMaterial3D_o4cdl" )
+size = Vector2(25, 25)
+
+[node name="Node3D" type="Node3D"]
+script = null
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, -13.4262)
+script = ExtResource( "1_ambmq" )
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource( "CapsuleMesh_idheg" )
+surface_material_override/0 = null
+script = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource( "CapsuleShape3D_8l87e" )
+script = null
+
+[node name="Camera" type="Node3D" parent="Player"]
+transform = Transform3D(0.998537, -0.0142699, 0.0521621, 0, 0.964557, 0.263873, -0.0540788, -0.263487, 0.963146, 1.2, 2, 0)
+script = ExtResource( "3_e3gnr" )
+
+[node name="Camera3D" type="Camera3D" parent="Player/Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+environment = SubResource( "Environment_x6db7" )
+effects = SubResource( "CameraEffects_m2vm2" )
+doppler_tracking = 2
+current = true
+fov = 90.0
+far = 1000.0
+script = null
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.802236, -0.416729, 0.427498, 0.101604, 0.800925, 0.590082, -0.588298, -0.429949, 0.684872, -0.0811291, 5.82847, 2.05821)
+light_color = Color(1, 0.894118, 0.831373, 1)
+light_energy = 3.8
+light_indirect_energy = 8.26
+light_bake_mode = 0
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_normal_bias = 7.957
+shadow_transmittance_bias = 8.29
+shadow_fog_fade = 0.01
+shadow_blur = 8.0
+directional_shadow_blend_splits = true
+script = null
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 5, 0, 0, 0, 0.5, 0.795507, 5, -17.2375)
+mesh = SubResource( "BoxMesh_3ghnr" )
+surface_material_override/0 = null
+script = null
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.0421)
+mesh = SubResource( "PlaneMesh_kbt3w" )
+surface_material_override/0 = null
+script = null
